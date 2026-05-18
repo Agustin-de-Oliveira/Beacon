@@ -1,0 +1,23 @@
+---
+project_name: "BeaconDemo"
+adr:
+  title: "Use PostgreSQL for Core Data Storage"
+  status: "Accepted"
+  date: "2026-05-24"
+modules:
+  - "auth"
+  - "billing"
+---
+
+# Use PostgreSQL for Core Data Storage
+
+## Context
+We need a robust, relational, and transaction-safe database to store user authentication and billing records. Our application requires strong consistency, transactional integrity, and ACID compliance.
+
+## Decision
+We will use PostgreSQL as our primary database engine. It is mature, open-source, supports advanced JSON querying if needed, and has excellent library support in Python (such as SQLAlchemy and asyncpg).
+
+## Consequences
+- We will need to host and maintain a PostgreSQL instance or utilize a managed database service.
+- Database schema migrations will be handled using Alembic.
+- Development environments will run PostgreSQL locally using Docker Compose to ensure consistency.
