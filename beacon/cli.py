@@ -1,5 +1,5 @@
 """
-Beacon CLI entrypoint. Defines commands for versioning and artifact generation.
+Beacon CLI entry point. Defines commands for checking version and generating artifacts.
 """
 
 from pathlib import Path
@@ -63,9 +63,16 @@ def generate(
         print_error(f"An error occurred while generating artifacts: {e}")
         raise typer.Exit(code=1)
 
-@app.callback()
-def main():
-    pass
+@app.callback(invoke_without_command=True)
+def main(ctx: typer.Context):
+    if ctx.invoked_subcommand is None:
+        from beacon.utils import print_banner
+        print_banner()
+        console.print("[header]Beacon CLI[/header] - Automatic code, test, and ADR generator.\n")
+        console.print("[info]Usage:[/info]")
+        console.print("  [success]beacon generate <spec-file>[/success]  Generate ADRs, code, and tests")
+        console.print("  [success]beacon version[/success]               Print CLI version")
+        console.print("  [success]beacon --help[/success]                Show detailed help instructions\n")
 
 if __name__ == "__main__":
     app()

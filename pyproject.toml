@@ -25,11 +25,23 @@ dependencies = [
     "pytest>=7.0.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Agustin-de-Oliveira/Beacon"
+Repository = "https://github.com/Agustin-de-Oliveira/Beacon"
+"Bug Tracker" = "https://github.com/Agustin-de-Oliveira/Beacon/issues"
+
 [project.scripts]
 beacon = "beacon.cli:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["beacon"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/tests",
+  "/docs/demo.tape",
+  "/specs",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
