@@ -17,16 +17,16 @@ custom_theme = Theme({
 console = Console(theme=custom_theme)
 
 def print_success(message: str) -> None:
-    console.print(f"[success]✔[/success] {message}")
+    console.print(f"[success][+][/success] {message}")
 
 def print_error(message: str) -> None:
-    console.print(f"[error]✘ Error:[/error] {message}")
+    console.print(f"[error][x] Error:[/error] {message}")
 
 def print_warning(message: str) -> None:
-    console.print(f"[warning]⚠ Warning:[/warning] {message}")
+    console.print(f"[warning][!] Warning:[/warning] {message}")
 
 def print_info(message: str) -> None:
-    console.print(f"[info]ℹ[/info] {message}")
+    console.print(f"[info][i][/info] {message}")
 
 def print_header(message: str) -> None:
     console.print(f"\n[header]=== {message} ===[/header]\n")

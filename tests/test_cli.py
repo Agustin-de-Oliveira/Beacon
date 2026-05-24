@@ -54,5 +54,5 @@ Fast tests, easy setup.
     
     adr_content = expected_adr.read_text(encoding="utf-8")
     assert "ADR: Use SQLite for Testing" in adr_content
-    assert "Status: Accepted" in adr_content
+    assert "**Status:** Accepted" in adr_content
     assert "We decide to use SQLite in-memory database." in adr_content
