@@ -1,17 +1,6 @@
 # Beacon CLI
 
-```text
-╔══════════════════════════════════════════════════════════════╗
-║  * Welcome to the Beacon CLI developer preview!              ║
-╚══════════════════════════════════════════════════════════════╝
-
-██████╗ ███████╗ █████╗  ██████╗ ██████╗ ███╗   ██╗
-██╔══██╗██╔════╝██╔══██╗██╔════╝██╔═══██╗████╗  ██║
-██████╔╝█████╗  ███████║██║     ██║   ██║██╔██╗ ██║
-██╔══██╗██╔══╝  ██╔══██║██║     ██║   ██║██║╚██╗██║
-██████╔╝███████╗██║  ██║╚██████╗╚██████╔╝██║ ╚████║
-╚══════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝
-```
+![Beacon CLI Demo](docs/images/preview.gif)
 
 [![PyPI Version](https://img.shields.io/pypi/v/beacon-cli.svg)](https://pypi.org/project/beacon-cli/)
 [![License](https://img.shields.io/github/license/Agustin-de-Oliveira/Beacon.svg)](https://github.com/Agustin-de-Oliveira/Beacon/blob/master/LICENSE)
