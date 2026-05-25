@@ -1,6 +1,17 @@
 # Beacon CLI
 
-![Beacon CLI Demo](docs/images/preview.gif)
+```text
+╔══════════════════════════════════════════════════════════════╗
+║  * Welcome to the Beacon CLI developer preview!              ║
+╚══════════════════════════════════════════════════════════════╝
+
+██████╗ ███████╗ █████╗  ██████╗ ██████╗ ███╗   ██╗
+██╔══██╗██╔════╝██╔══██╗██╔════╝██╔═══██╗████╗  ██║
+██████╔╝█████╗  ███████║██║     ██║   ██║██╔██╗ ██║
+██╔══██╗██╔══╝  ██╔══██║██║     ██║   ██║██║╚██╗██║
+██████╔╝███████╗██║  ██║╚██████╗╚██████╔╝██║ ╚████║
+╚══════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝
+```
 
 [![PyPI Version](https://img.shields.io/pypi/v/beacon-cli.svg)](https://pypi.org/project/beacon-cli/)
 [![License](https://img.shields.io/github/license/Agustin-de-Oliveira/Beacon.svg)](https://github.com/Agustin-de-Oliveira/Beacon/blob/master/LICENSE)
@@ -19,25 +30,39 @@ Beacon is a Python-based command-line interface (CLI) tool that automates the ge
 
 ---
 
-## Practical Use Case: Bootstrapping a New Service
+## Why Beacon? (The Alternative to "Vibe Coding")
 
-Imagine you are starting a new microservice (e.g., a **Payment Gateway**). Before writing any code, you need to align on design decisions and set up the codebase. 
+As AI-assisted programming tools (like Cursor, Copilot, or raw LLMs) become standard, it is increasingly easy to generate massive amounts of disconnected code without structured planning—often referred to as **"vibe coding"**. This can lead to undocumented decisions, inconsistent code patterns, and fast-growing technical debt.
 
-Instead of manually creating ADR templates, setting up boilerplate folders, and writing empty test files, you can define your service spec in a single file (`payment_service.beacon`):
+Beacon aims to act as a **disciplined companion** to your development workflow:
+*   **Spec-First, Code-Second**: It encourages defining architectural constraints and modules in a simple specification file *before* writing code.
+*   **Architectural Linter**: Enforces a single, validated source of truth for design decisions (ADRs) and structural codebases.
+*   **Targeted Scaffolding**: Uses pre-configured team templates to generate code and tests, keeping files globally consistent even when different developers or AI tools write the logic.
 
-1. **Documenting Decisions**: Describe the architectural choice (e.g., "Use Stripe API for credit card processing").
-2. **Structuring Modules**: List the core modules you need to bootstrap (e.g., `stripe_client`, `webhooks`, `billing`).
+---
 
-When you run `beacon generate payment_service.beacon`, Beacon automatically:
-*   Generates a formal Markdown ADR (e.g., `adr_use_stripe_api_for_credit_card_processing.md`) detailing the context, decision, and consequences.
-*   Prepares your Python module files and folder structure (Next phase).
-*   Generates basic unit test suites matching your modules (Next phase).
+## Project Roadmap
 
-This ensures every new module in your organization starts with structured, consistent documentation and boilerplate code in under a second.
+Beacon is being built in modular phases:
+*   **Phase 1 (Current)**: Parse YAML/Markdown specifications, validate structure via Pydantic, and compile standardized ADR files using Jinja2 templates.
+*   **Phase 2 (Upcoming)**: Support deterministic file scaffolding. Auto-generate empty Python module files, folders, and basic `pytest` stubs from the specification definition.
+*   **Phase 3 (AI Integration)**: Integrate optional LLM connectors (OpenAI/Gemini/Ollama) to read the specification context and generate initial functional code implementations and actual unit tests instead of leaving them empty.
+*   **Phase 4 (Interactive Wizard)**: Add an interactive CLI questionnaire (`beacon init`) to generate spec files easily.
+*   **Phase 5 (CI/CD Verification)**: Implement checking pipelines to ensure pull requests conform to accepted ADRs and block contradictory changes.
 
 ---
 
 ## Example: Before & After
+
+Beacon takes your loose metadata and informal section headers and maps them into a standard, validated industry format:
+
+| Input Spec Component (`specs/example.beacon`) | Transformation / Mapping | Mapped to Output ADR |
+| :--- | :--- | :--- |
+| **YAML Metadata (`adr.status: "Accepted"`)** | Validated via Pydantic validation rules | Metadata block: `* **Status:** Accepted` |
+| **YAML Metadata (`adr.date: "2026-05-24"`)** | Formatted to standard date object | Metadata block: `* **Date:** 2026-05-24` |
+| **Markdown Section Heading (`## Context`)** | Mapped to structured MADR format | Standard Heading: `## Context and Problem Statement` |
+| **Markdown Section Heading (`## Decision`)** | Mapped to structured MADR format | Standard Heading: `## Decision Outcome` |
+| **List of Target Modules (`modules`)** | Mapped to codebase scaffolding | Bootstraps python files & unit test suites (Next phase) |
 
 ### 1. Input Specification (`specs/example.beacon`)
 
