@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 from beacon.config import Settings, load_settings
 from beacon.parser.spec_parser import parse_spec_file
-from beacon.generator.adr import generate_adr
+from beacon.generator import generate_adr, generate_codebase
 from beacon.utils import print_success, print_info, print_header
 
 class BeaconCore:
@@ -33,5 +33,12 @@ class BeaconCore:
             
         if spec.modules:
             print_info(f"Target modules identified: {', '.join(spec.modules)}")
+            codebase_files = generate_codebase(
+                spec=spec,
+                output_dir=self.settings.output_dir,
+                custom_templates_dir=self.settings.templates_dir
+            )
+            for file_path in codebase_files:
+                print_success(f"Scaffolded file: [highlight]{file_path.resolve()}[/highlight]")
             
         return generated_artifacts
