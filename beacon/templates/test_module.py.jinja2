@@ -1,0 +1,6 @@
+import pytest
+from {{ module_name }}.service import {{ module_name | capitalize }}Service
+
+def test_{{ module_name }}_service_initialization():
+    service = {{ module_name | capitalize }}Service()
+    assert service is not None
