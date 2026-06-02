@@ -6,8 +6,15 @@ from pathlib import Path
 from typing import List
 from beacon.parser.models import BeaconSpec
 from beacon.generator.adr import get_template_env
+from beacon.generator.ai import generate_code_with_ai, generate_test_with_ai
+from beacon.utils import console, print_info
 
-def generate_codebase(spec: BeaconSpec, output_dir: Path, custom_templates_dir: Path | None = None) -> List[Path]:
+def generate_codebase(
+    spec: BeaconSpec, 
+    output_dir: Path, 
+    custom_templates_dir: Path | None = None,
+    ai: bool = False
+) -> List[Path]:
     """
     Generates directory structures, Python source files, and unit test suites
     based on the modules defined in the specification.
@@ -51,20 +58,36 @@ def generate_codebase(spec: BeaconSpec, output_dir: Path, custom_templates_dir: 
             mod_init.write_text(f'"""{module_name.capitalize()} module stub."""\n', encoding="utf-8")
             generated_files.append(mod_init)
             
-        # Render and write service.py
-        rendered_module = module_template.render(
-            module_name=module_name,
-            project_name=spec.project_name
-        )
+        rendered_module = None
+        rendered_test = None
+        
+        if ai:
+            print_info(f"Generating AI implementation for module: [highlight]{module_name}[/highlight]...")
+            try:
+                rendered_module = generate_code_with_ai(spec, module_name)
+                print_info(f"Generating AI tests for module: [highlight]{module_name}[/highlight]...")
+                rendered_test = generate_test_with_ai(spec, module_name, rendered_module)
+            except Exception as e:
+                console.print(f"[warning]AI Generation failed: {e}. Falling back to static templates.[/warning]")
+                rendered_module = None
+                rendered_test = None
+                
+        # Write service.py
+        if rendered_module is None:
+            rendered_module = module_template.render(
+                module_name=module_name,
+                project_name=spec.project_name
+            )
         service_file = mod_dir / "service.py"
         service_file.write_text(rendered_module, encoding="utf-8")
         generated_files.append(service_file)
         
-        # Render and write test_<module>.py
-        rendered_test = test_template.render(
-            module_name=module_name,
-            project_name=spec.project_name
-        )
+        # Write test_<module>.py
+        if rendered_test is None:
+            rendered_test = test_template.render(
+                module_name=module_name,
+                project_name=spec.project_name
+            )
         test_file = tests_dir / f"test_{module_name}.py"
         test_file.write_text(rendered_test, encoding="utf-8")
         generated_files.append(test_file)

@@ -44,6 +44,11 @@ def generate(
         "-t", 
         help="Directory to search for custom Jinja2 templates first."
     ),
+    ai: bool = typer.Option(
+        False,
+        "--ai",
+        help="Enable AI-driven code and test generation using Groq (requires GROQ_API_KEY)."
+    ),
 ):
     settings = load_settings(config_path)
     
@@ -58,7 +63,7 @@ def generate(
         
     try:
         core = BeaconCore(settings)
-        core.process_spec(file)
+        core.process_spec(file, ai=ai)
     except Exception as e:
         print_error(f"An error occurred while generating artifacts: {e}")
         raise typer.Exit(code=1)

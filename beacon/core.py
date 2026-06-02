@@ -13,7 +13,7 @@ class BeaconCore:
     def __init__(self, settings: Optional[Settings] = None):
         self.settings = settings or load_settings()
         
-    def process_spec(self, spec_path: Path) -> Dict[str, Path]:
+    def process_spec(self, spec_path: Path, ai: bool = False) -> Dict[str, Path]:
         print_header(f"Beacon Processing Spec: {spec_path.name}")
         
         spec = parse_spec_file(spec_path)
@@ -36,7 +36,8 @@ class BeaconCore:
             codebase_files = generate_codebase(
                 spec=spec,
                 output_dir=self.settings.output_dir,
-                custom_templates_dir=self.settings.templates_dir
+                custom_templates_dir=self.settings.templates_dir,
+                ai=ai
             )
             for file_path in codebase_files:
                 print_success(f"Scaffolded file: [highlight]{file_path.resolve()}[/highlight]")
